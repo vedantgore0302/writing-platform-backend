@@ -5,6 +5,7 @@ Production backend service built with **FastAPI** and the **Google Antigravity S
 🌐 **Live Production Deployment**: [https://writingplatformbackend.vercel.app](https://writingplatformbackend.vercel.app)  
 🚀 **Interactive Web Playground**: [https://writingplatformbackend.vercel.app/](https://writingplatformbackend.vercel.app/)  
 🩺 **Health Endpoint**: [https://writingplatformbackend.vercel.app/health](https://writingplatformbackend.vercel.app/health)  
+📦 **GitHub Repository**: [https://github.com/vedantgore0302/writing-platform-backend](https://github.com/vedantgore0302/writing-platform-backend)  
 
 ---
 
