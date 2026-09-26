@@ -1,0 +1,26 @@
+# Virtual Environment
+.venv/
+env/
+ENV/
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Deployment & IDE Files
+.vercel/
+.idea/
+.vscode/
+*.swp
