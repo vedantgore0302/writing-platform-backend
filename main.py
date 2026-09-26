@@ -51,24 +51,38 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Antigravity Multi-Mode Writing Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         code, pre { font-family: 'JetBrains Mono', monospace; }
         .mode-btn.active { border-color: #6366f1; background-color: #eef2ff; color: #4338ca; }
+        .tab-btn.active { border-bottom: 2px solid #6366f1; color: #818cf8; font-weight: 600; }
+        .markdown-body h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 1rem; margin-bottom: 0.5rem; }
+        .markdown-body h2 { font-size: 1.25rem; font-weight: 700; color: #f1f5f9; margin-top: 1rem; margin-bottom: 0.5rem; }
+        .markdown-body h3 { font-size: 1.1rem; font-weight: 600; color: #e2e8f0; margin-top: 0.75rem; margin-bottom: 0.25rem; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem; }
+        .markdown-body ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 0.75rem; }
+        .markdown-body li { margin-bottom: 0.25rem; }
+        .markdown-body blockquote { border-left: 3px solid #6366f1; padding-left: 1rem; margin-left: 0; color: #94a3b8; font-style: italic; margin-bottom: 0.75rem; }
+        .markdown-body code { background: #1e293b; padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.85em; color: #a5b4fc; }
+        .markdown-body pre { background: #0f172a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 0.75rem; border: 1px solid #334155; }
+        .markdown-body pre code { background: transparent; padding: 0; color: inherit; }
+        .markdown-body hr { border: 0; border-top: 1px solid #334155; margin: 1.5rem 0; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
     <div class="max-w-4xl mx-auto px-4 py-10">
         <!-- Header -->
-        <header class="text-center mb-10">
+        <header class="text-center mb-8">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-3 tracking-wide uppercase">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Service Healthy • Powered by Google Antigravity SDK
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live in Production • Powered by Google Antigravity SDK
             </div>
             <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 Multi-Mode <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Writing Platform</span>
             </h1>
-            <p class="mt-3 text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+            <p class="mt-2 text-slate-400 max-w-xl mx-auto text-sm">
                 Dynamically orchestrated agent personas with customized system instructions, temperatures, and specialized toolsets.
             </p>
         </header>
@@ -77,18 +91,18 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <!-- Blogger -->
             <button onclick="selectMode('blogger')" id="btn-blogger" class="mode-btn active flex flex-col p-4 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-800 transition text-left cursor-pointer">
-                <div class="flex items-center justify-between w-full mb-2">
-                    <span class="text-lg font-bold text-white">⚡ Blogger</span>
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-base font-bold text-white">⚡ Blogger</span>
                     <span class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">temp: 0.7</span>
                 </div>
                 <p class="text-xs text-slate-400">SEO-optimized, catchy hooks, viral formatting, engaging CTAs.</p>
-                <span class="text-[10px] mt-2 text-slate-500">Tools: Standard</span>
+                <span class="text-[10px] mt-2 text-indigo-400 font-medium">Style: High-Engagement Copy</span>
             </button>
 
             <!-- Researcher -->
             <button onclick="selectMode('researcher')" id="btn-researcher" class="mode-btn flex flex-col p-4 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-800 transition text-left cursor-pointer">
-                <div class="flex items-center justify-between w-full mb-2">
-                    <span class="text-lg font-bold text-white">🔬 Researcher</span>
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-base font-bold text-white">🔬 Researcher</span>
                     <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">temp: 0.1</span>
                 </div>
                 <p class="text-xs text-slate-400">Zero hallucination, academic rigor, empirical data & methodology.</p>
@@ -97,8 +111,8 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
 
             <!-- Book Author -->
             <button onclick="selectMode('book_author')" id="btn-book_author" class="mode-btn flex flex-col p-4 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-800 transition text-left cursor-pointer">
-                <div class="flex items-center justify-between w-full mb-2">
-                    <span class="text-lg font-bold text-white">📖 Book Author</span>
+                <div class="flex items-center justify-between w-full mb-1">
+                    <span class="text-base font-bold text-white">📖 Book Author</span>
                     <span class="text-xs px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">temp: 0.4</span>
                 </div>
                 <p class="text-xs text-slate-400">Deep continuity, sensory atmosphere, character voice & arc balance.</p>
@@ -107,20 +121,23 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
         </div>
 
         <!-- Input Form -->
-        <div class="bg-slate-800/60 rounded-2xl border border-slate-700/80 p-6 backdrop-blur-sm shadow-xl mb-6">
+        <div class="bg-slate-800/60 rounded-2xl border border-slate-700/80 p-5 backdrop-blur-sm shadow-xl mb-6">
             <div class="mb-4">
-                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Prompt / Topic</label>
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Prompt / Topic</label>
+                    <span id="modeBadge" class="text-xs text-indigo-400 font-mono">Mode: blogger</span>
+                </div>
                 <textarea id="promptInput" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" placeholder="Enter your prompt..."></textarea>
             </div>
 
-            <div class="mb-5">
+            <div class="mb-4">
                 <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
                     Supplementary Context / Reference Data <span class="text-slate-500 font-normal">(Optional)</span>
                 </label>
                 <textarea id="contextInput" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" placeholder="Add specific notes, background constraints, or references..."></textarea>
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between pt-1">
                 <div class="text-xs text-slate-400">
                     Endpoint: <code class="text-indigo-400">POST /generate</code> (Streamed chunk-by-chunk)
                 </div>
@@ -135,24 +152,60 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
         </div>
 
         <!-- Output Card -->
-        <div class="bg-slate-800/60 rounded-2xl border border-slate-700/80 p-6 backdrop-blur-sm shadow-xl">
-            <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
-                    <h3 class="text-sm font-semibold text-slate-200">Streaming Output</h3>
+        <div class="bg-slate-800/60 rounded-2xl border border-slate-700/80 p-5 backdrop-blur-sm shadow-xl">
+            <!-- Output Header & Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-700/60 pb-3 mb-4">
+                <div class="flex items-center gap-4">
+                    <button onclick="switchTab('formatted')" id="tabFormatted" class="tab-btn active pb-1 text-xs uppercase tracking-wide cursor-pointer transition">
+                        ✨ Formatted View
+                    </button>
+                    <button onclick="switchTab('raw')" id="tabRaw" class="tab-btn pb-1 text-xs text-slate-400 uppercase tracking-wide cursor-pointer transition">
+                        📝 Raw Markdown
+                    </button>
                 </div>
-                <button onclick="copyOutput()" class="text-xs px-3 py-1 bg-slate-700/60 hover:bg-slate-700 text-slate-300 rounded-lg transition">
-                    Copy Text
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="copyOutput()" class="text-xs px-2.5 py-1 bg-slate-700/60 hover:bg-slate-700 text-slate-300 rounded-lg transition cursor-pointer">
+                        📋 Copy
+                    </button>
+                    <button onclick="downloadFile('md', 'text/markdown')" class="text-xs px-2.5 py-1 bg-slate-700/60 hover:bg-slate-700 text-slate-300 rounded-lg transition cursor-pointer">
+                        ⬇️ .md
+                    </button>
+                    <button onclick="downloadFile('txt', 'text/plain')" class="text-xs px-2.5 py-1 bg-slate-700/60 hover:bg-slate-700 text-slate-300 rounded-lg transition cursor-pointer">
+                        ⬇️ .txt
+                    </button>
+                </div>
             </div>
-            <div id="outputBox" class="min-h-[160px] max-h-[450px] overflow-y-auto whitespace-pre-wrap text-sm text-slate-200 leading-relaxed font-sans bg-slate-900/70 p-4 rounded-xl border border-slate-700/50">
-                <span class="text-slate-500 italic">Select a mode, enter a prompt, and click Generate to view live streaming output...</span>
+
+            <!-- Stats Bar -->
+            <div class="flex items-center gap-4 text-[11px] text-slate-400 mb-3 px-1 font-mono">
+                <span id="statWords">0 words</span>
+                <span>•</span>
+                <span id="statChars">0 chars</span>
+                <span>•</span>
+                <span id="statReadTime">~0 min read</span>
+            </div>
+
+            <!-- Content Area -->
+            <div id="outputContainer" class="min-h-[180px] max-h-[460px] overflow-y-auto text-sm text-slate-200 bg-slate-900/80 p-5 rounded-xl border border-slate-700/50 leading-relaxed">
+                <div id="formattedOutput" class="markdown-body">
+                    <span class="text-slate-500 italic">Select a mode, enter a prompt, and click Generate to view live streaming output...</span>
+                </div>
+                <pre id="rawOutput" class="hidden whitespace-pre-wrap font-mono text-xs text-slate-300"></pre>
+            </div>
+
+            <!-- Recent Drafts Bar -->
+            <div id="draftsSection" class="mt-4 pt-3 border-t border-slate-800 hidden">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">Recent Drafts (This Session)</span>
+                <div id="draftsList" class="flex flex-wrap gap-2"></div>
             </div>
         </div>
     </div>
 
     <script>
         let currentMode = 'blogger';
+        let currentTab = 'formatted';
+        let accumulatedText = '';
+
         const samplePrompts = {
             'blogger': 'Top 5 AI tools transforming developer productivity in 2026',
             'researcher': 'Evaluate the empirical scaling laws and memory constraints of sparse Mixture-of-Experts architectures.',
@@ -176,17 +229,55 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
                     el.classList.add('border-slate-700', 'bg-slate-800/80');
                 }
             });
+            document.getElementById('modeBadge').textContent = 'Mode: ' + mode;
             document.getElementById('promptInput').value = samplePrompts[mode];
             document.getElementById('contextInput').value = sampleContexts[mode];
         }
 
-        // Initialize default sample prompt
-        selectMode('blogger');
+        function switchTab(tab) {
+            currentTab = tab;
+            const tabFormatted = document.getElementById('tabFormatted');
+            const tabRaw = document.getElementById('tabRaw');
+            const formattedOutput = document.getElementById('formattedOutput');
+            const rawOutput = document.getElementById('rawOutput');
+
+            if (tab === 'formatted') {
+                tabFormatted.classList.add('active', 'text-indigo-400');
+                tabFormatted.classList.remove('text-slate-400');
+                tabRaw.classList.remove('active', 'text-indigo-400');
+                tabRaw.classList.add('text-slate-400');
+                formattedOutput.classList.remove('hidden');
+                rawOutput.classList.add('hidden');
+            } else {
+                tabRaw.classList.add('active', 'text-indigo-400');
+                tabRaw.classList.remove('text-slate-400');
+                tabFormatted.classList.remove('active', 'text-indigo-400');
+                tabFormatted.classList.add('text-slate-400');
+                rawOutput.classList.remove('hidden');
+                formattedOutput.classList.add('hidden');
+            }
+        }
+
+        function updateStats(text) {
+            const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
+            const chars = text.length;
+            const readTime = Math.max(1, Math.ceil(words / 200));
+            document.getElementById('statWords').textContent = words + ' words';
+            document.getElementById('statChars').textContent = chars + ' chars';
+            document.getElementById('statReadTime').textContent = '~' + readTime + ' min read';
+        }
+
+        function renderContent() {
+            document.getElementById('rawOutput').textContent = accumulatedText;
+            document.getElementById('formattedOutput').innerHTML = marked.parse(accumulatedText);
+            updateStats(accumulatedText);
+            const container = document.getElementById('outputContainer');
+            container.scrollTop = container.scrollHeight;
+        }
 
         async function startGeneration() {
             const prompt = document.getElementById('promptInput').value.trim();
             const contextData = document.getElementById('contextInput').value.trim();
-            const outputBox = document.getElementById('outputBox');
             const generateBtn = document.getElementById('generateBtn');
             const spinner = document.getElementById('spinner');
             const btnText = document.getElementById('btnText');
@@ -196,7 +287,10 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
                 return;
             }
 
-            outputBox.textContent = '';
+            accumulatedText = '';
+            document.getElementById('formattedOutput').innerHTML = '';
+            document.getElementById('rawOutput').textContent = '';
+            updateStats('');
             generateBtn.disabled = true;
             spinner.classList.remove('hidden');
             btnText.textContent = 'Generating...';
@@ -223,11 +317,14 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
                     const { done, value } = await reader.read();
                     if (done) break;
                     const chunk = decoder.decode(value, { stream: true });
-                    outputBox.textContent += chunk;
-                    outputBox.scrollTop = outputBox.scrollHeight;
+                    accumulatedText += chunk;
+                    renderContent();
                 }
+
+                saveDraft(currentMode, prompt, accumulatedText);
             } catch (err) {
-                outputBox.textContent = `[Error: ${err.message}]`;
+                accumulatedText = `[Error: ${err.message}]`;
+                renderContent();
             } finally {
                 generateBtn.disabled = false;
                 spinner.classList.add('hidden');
@@ -236,9 +333,61 @@ HTML_PLAYGROUND = """<!DOCTYPE html>
         }
 
         function copyOutput() {
-            const text = document.getElementById('outputBox').textContent;
-            navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+            if (!accumulatedText) return alert('No content to copy.');
+            navigator.clipboard.writeText(accumulatedText).then(() => alert('Copied text to clipboard!'));
         }
+
+        function downloadFile(ext, mimeType) {
+            if (!accumulatedText) return alert('No content to download.');
+            const blob = new Blob([accumulatedText], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentMode}_draft_${Date.now()}.${ext}`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function saveDraft(mode, prompt, text) {
+            if (!text || text.length < 20) return;
+            try {
+                const drafts = JSON.parse(localStorage.getItem('wp_drafts') || '[]');
+                drafts.unshift({
+                    mode: mode,
+                    title: prompt.slice(0, 45) + '...',
+                    text: text,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+                if (drafts.length > 4) drafts.pop();
+                localStorage.setItem('wp_drafts', JSON.stringify(drafts));
+                loadDrafts();
+            } catch (e) {}
+        }
+
+        function loadDrafts() {
+            try {
+                const drafts = JSON.parse(localStorage.getItem('wp_drafts') || '[]');
+                if (!drafts.length) return;
+                const section = document.getElementById('draftsSection');
+                const list = document.getElementById('draftsList');
+                section.classList.remove('hidden');
+                list.innerHTML = '';
+                drafts.forEach((d, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 hover:border-indigo-500 text-slate-300 transition text-left cursor-pointer';
+                    btn.innerHTML = `<span class="text-indigo-400 font-semibold">[${d.mode}]</span> ${d.title} <span class="text-slate-500">(${d.time})</span>`;
+                    btn.onclick = () => {
+                        accumulatedText = d.text;
+                        renderContent();
+                    };
+                    list.appendChild(btn);
+                });
+            } catch (e) {}
+        }
+
+        // Initialize UI
+        selectMode('blogger');
+        loadDrafts();
     </script>
 </body>
 </html>
